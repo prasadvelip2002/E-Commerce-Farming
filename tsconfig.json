@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "lib": ["es2017", "dom"],
+    "allowJs": true,
+    "jsx": "react-native",
+    "noEmit": true,
+    "isolatedModules": true,
+    "strict": false,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "*": ["*", "node_modules/*", "apps/mobile/node_modules/*", "apps/web/node_modules/*"]
+    }
+  },
+  "include": [
+    "apps/mobile/src/**/*",
+    "apps/mobile/App.tsx",
+    "apps/mobile/index.ts",
+    "apps/web/src/**/*",
+    "backend/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/node_modules/*"
+  ]
+}

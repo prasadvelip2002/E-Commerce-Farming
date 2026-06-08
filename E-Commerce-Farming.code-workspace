@@ -1,0 +1,28 @@
+{
+  "folders": [
+    {
+      "name": "Mobile App",
+      "path": "apps/mobile"
+    },
+    {
+      "name": "Web App",
+      "path": "apps/web"
+    },
+    {
+      "name": "Backend",
+      "path": "backend"
+    },
+    {
+      "name": "AI Services",
+      "path": "ai-services"
+    },
+    {
+      "name": "Root",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "typescript.enablePromptUseWorkspaceTsdk": true
+  }
+}

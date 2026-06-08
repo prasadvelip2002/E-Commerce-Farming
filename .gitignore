@@ -1,0 +1,14 @@
+node_modules/
+.next/
+venv/
+.turbo/
+backend/src/API/bin/
+backend/src/API/obj/
+backend/src/Infrastructure/bin/
+backend/src/Infrastructure/obj/
+backend/src/Application/bin/
+backend/src/Application/obj/
+backend/src/Core/bin/
+backend/src/Core/obj/
+.DS_Store
+*.sqlite

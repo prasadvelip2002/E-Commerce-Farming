@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  # ─── Data Layer ────────────────────────────────────────────────
+  postgres:
+    image: postgres:15-alpine
+    container_name: agri_postgres
+    environment:
+      POSTGRES_DB: AgriEcommerceDb
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminpassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d AgriEcommerceDb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: agri_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+  # ─── Backend (.NET 9 API) ───────────────────────────────────────
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: agri_api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5000
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=AgriEcommerceDb;Username=admin;Password=adminpassword
+      - JwtSettings__Secret=SuperSecretKeyForAgriEcommercePlatform123456789!
+      - JwtSettings__Issuer=AgriEcommerceAPI
+      - JwtSettings__Audience=AgriEcommerceClients
+      - JwtSettings__ExpiryMinutes=60
+      - AiServiceBaseUrl=http://ai:8000
+    ports:
+      - "5000:5000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # ─── AI Services (Python FastAPI) ──────────────────────────────
+  ai:
+    build:
+      context: ./ai-services
+      dockerfile: Dockerfile
+    container_name: agri_ai
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
