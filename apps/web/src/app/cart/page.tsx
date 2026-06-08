@@ -1,6 +1,6 @@
 'use client';
 import { useCartStore } from '../../store/cartStore';
-import { Button } from '@agri/shared-ui';
+import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 

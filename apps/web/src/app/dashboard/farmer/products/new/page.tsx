@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/authStore';
-import { Button } from '@agri/shared-ui';
+import { Button } from '@/components/ui/Button';
 
 export default function NewProductPage() {
   const router = useRouter();

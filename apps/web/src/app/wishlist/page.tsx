@@ -5,7 +5,7 @@ import { useCartStore } from '@/store/cartStore';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Button } from '@agri/shared-ui';
+import { Button } from '@/components/ui/Button';
 import ProductImage from '@/components/ProductImage';
 
 export default function WishlistPage() {

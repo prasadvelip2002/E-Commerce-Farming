@@ -1,7 +1,8 @@
 'use client';
 import { useQuery } from '@tanstack/react-query';
 import { useAuthStore } from '@/store/authStore';
-import { Card, Button } from '@agri/shared-ui';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
 
 export default function FarmerProductsPage() {
