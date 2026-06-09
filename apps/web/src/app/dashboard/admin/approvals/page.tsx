@@ -47,7 +47,7 @@ export default function ApprovalsPage() {
 
   const fetchApplications = async () => {
     try {
-      const res = await fetch('http://localhost:5153/api/verification/pending');
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5153'}/api/verification/pending`);
       if (!res.ok) throw new Error('Failed to fetch');
       const data = await res.json();
       
@@ -85,7 +85,7 @@ export default function ApprovalsPage() {
     if (!confirm(`Are you sure you want to ${action.toUpperCase()} this application?`)) return;
     
     try {
-      const res = await fetch('http://localhost:5153/api/verification/review', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5153'}/api/verification/review`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 

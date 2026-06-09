@@ -36,7 +36,7 @@ export default function Home() {
     setScanResult(null);
     try {
       const hostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-      const res = await fetch(`http://${hostname}:8000/disease/detect`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5153'}/disease/detect`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ image_url: 'demo.jpg', crop_type: 'Tomato' })
@@ -60,7 +60,7 @@ export default function Home() {
       if (!user?.email) return;
       try {
         const hostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-        const res = await fetch(`http://${hostname}:5153/api/products/farmer?email=${encodeURIComponent(user.email)}`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5153'}/api/products/farmer?email=${encodeURIComponent(user.email)}`);
         if (!res.ok) throw new Error('Failed to fetch inventory');
         const data = await res.json();
         setProducts(data);

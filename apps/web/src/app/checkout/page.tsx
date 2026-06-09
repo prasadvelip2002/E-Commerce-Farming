@@ -54,7 +54,7 @@ export default function CheckoutPage() {
     // Save order to actual backend so Admin can see it
     try {
       const hostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-      await fetch(`http://${hostname}:5153/api/orders/place`, {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5153'}/api/orders/place`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

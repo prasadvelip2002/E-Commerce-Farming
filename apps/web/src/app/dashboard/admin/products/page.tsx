@@ -43,7 +43,7 @@ export default function ProductsPage() {
   const fetchProducts = async () => {
     try {
       const hostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-      const res = await fetch(`http://${hostname}:5153/api/products`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5153'}/api/products`);
       if (!res.ok) throw new Error('Failed to fetch products');
       const data = await res.json();
       
@@ -76,7 +76,7 @@ export default function ProductsPage() {
 
     try {
       const hostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-      const res = await fetch(`http://${hostname}:5153/api/products/${id}/margin`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5153'}/api/products/${id}/margin`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ margin: newMargin })
@@ -99,7 +99,7 @@ export default function ProductsPage() {
     setAiResult(null);
     try {
       const hostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-      const res = await fetch(`http://${hostname}:5153/api/ai/pricing-suggestion`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5153'}/api/ai/pricing-suggestion`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

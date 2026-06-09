@@ -23,7 +23,7 @@ export default function TrackingPage() {
     const connectToHub = async () => {
       try {
         const connection = new HubConnectionBuilder()
-          .withUrl('http://localhost:5153/hubs/delivery')
+          .withUrl(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5153'}/hubs/delivery`)
           .configureLogging(LogLevel.Information)
           .withAutomaticReconnect()
           .build();
@@ -78,7 +78,7 @@ export default function TrackingPage() {
     // Helper to send a fake movement ping to the local API
     const newLat = location.latitude - 0.1;
     const newLon = location.longitude + 0.02;
-    fetch('http://localhost:5153/api/deliveries/update-location', {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5153'}/api/deliveries/update-location`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

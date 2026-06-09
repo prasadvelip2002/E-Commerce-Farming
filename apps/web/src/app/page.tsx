@@ -158,7 +158,7 @@ export default function Home() {
 
   const fetchRecommended = async (userId: string) => {
     try {
-      const baseUrl = typeof window !== 'undefined' ? `http://${window.location.hostname}:5153` : 'http://localhost:5153';
+      const baseUrl = typeof window !== 'undefined' ? `http://${window.location.hostname}:5153` : `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5153'}`;
       const res = await fetch(`${baseUrl}/api/products/recommended?customerId=${userId}`);
       if (res.ok) {
         const data = await res.json();
@@ -182,7 +182,7 @@ export default function Home() {
 
   const fetchProducts = async () => {
     try {
-      const baseUrl = typeof window !== 'undefined' ? `http://${window.location.hostname}:5153` : 'http://localhost:5153';
+      const baseUrl = typeof window !== 'undefined' ? `http://${window.location.hostname}:5153` : `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5153'}`;
       const res = await fetch(`${baseUrl}/api/products`);
       if (!res.ok) throw new Error('Failed to fetch products');
       const data = await res.json();

@@ -19,7 +19,7 @@ export default function DeliveryProviderPage() {
     if (!providerId) return;
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:5153/api/deliveries/provider/${providerId}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5153'}/api/deliveries/provider/${providerId}`);
       if (res.ok) setDeliveries(await res.json());
     } catch (err) {
       console.error(err);
@@ -30,7 +30,7 @@ export default function DeliveryProviderPage() {
 
   const updateStatus = async (deliveryId: string, newStatus: string) => {
     try {
-      const res = await fetch(`http://localhost:5153/api/deliveries/update-status`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5153'}/api/deliveries/update-status`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ deliveryId, newStatus })

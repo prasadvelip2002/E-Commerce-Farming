@@ -15,7 +15,7 @@ interface AuthState {
   logout: () => void;
 }
 
-const API_BASE = typeof window !== 'undefined' ? `http://${window.location.hostname}:5153` : (process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5153');
+const API_BASE = (process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5153'}`);
 
 export const useAuthStore = create<AuthState>()(
   persist(

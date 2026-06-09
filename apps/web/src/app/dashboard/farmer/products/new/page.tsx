@@ -38,7 +38,7 @@ export default function NewProductPage() {
     setAiSuggestion(null);
     
     try {
-      const res = await fetch('http://localhost:5153/api/Ai/pricing-suggestion', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5153'}/api/Ai/pricing-suggestion`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -79,7 +79,7 @@ export default function NewProductPage() {
     setError('');
 
     try {
-      const res = await fetch('http://localhost:5153/api/products', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5153'}/api/products`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

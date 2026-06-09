@@ -13,7 +13,7 @@ export default function FarmerProductsPage() {
     queryFn: async () => {
       if (!user?.email) return [];
       const hostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-      const res = await fetch(`http://${hostname}:5153/api/products/farmer?email=${encodeURIComponent(user.email)}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5153'}/api/products/farmer?email=${encodeURIComponent(user.email)}`);
       if (!res.ok) throw new Error('Failed to fetch products');
       return res.json();
     },
@@ -32,7 +32,7 @@ export default function FarmerProductsPage() {
 
     try {
       const hostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-      const res = await fetch(`http://${hostname}:5153/api/products/${productId}/stock`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5153'}/api/products/${productId}/stock`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ stock: newStock, email: user?.email })
