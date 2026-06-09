@@ -118,7 +118,8 @@ tools: list[Any] = [
 async def fetch_market_products():
     try:
         async with httpx.AsyncClient() as http_client:
-            resp = await http_client.get("http://localhost:5153/api/products")
+            api_base = os.getenv("API_BASE_URL", "http://localhost:5153")
+            resp = await http_client.get(f"{api_base}/api/products")
             if resp.status_code == 200:
                 return resp.json()
             return {"error": f"Failed to fetch products. Status code: {resp.status_code}"}
@@ -128,7 +129,8 @@ async def fetch_market_products():
 async def fetch_orders():
     try:
         async with httpx.AsyncClient() as http_client:
-            resp = await http_client.get("http://localhost:5153/api/orders/all")
+            api_base = os.getenv("API_BASE_URL", "http://localhost:5153")
+            resp = await http_client.get(f"{api_base}/api/orders/all")
             if resp.status_code == 200:
                 return resp.json()
             return {"error": f"Failed to fetch orders. Status code: {resp.status_code}"}
@@ -154,7 +156,7 @@ def fallback_chat_response(message: str, products_data: Any, orders_data: Any) -
         if not products_data or (isinstance(products_data, dict) and "error" in products_data):
             return (
                 "Offline Mode: I tried to fetch products from the local database, but encountered an error. "
-                "Make sure your C# API backend is running at http://localhost:5153!"
+                f"Make sure your C# API backend is running at {os.getenv('API_BASE_URL', 'http://localhost:5153')}!"
             )
         
         # If products_data is a list
@@ -176,7 +178,7 @@ def fallback_chat_response(message: str, products_data: Any, orders_data: Any) -
         if not orders_data or (isinstance(orders_data, dict) and "error" in orders_data):
             return (
                 "Offline Mode: I tried to fetch orders from the local database, but encountered an error. "
-                "Make sure your C# API backend is running at http://localhost:5153!"
+                f"Make sure your C# API backend is running at {os.getenv('API_BASE_URL', 'http://localhost:5153')}!"
             )
             
         if isinstance(orders_data, list) and len(orders_data) > 0:
