@@ -37,10 +37,17 @@ if (builder.Environment.IsDevelopment())
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlite("Data Source=agridb.sqlite"));
 }
-else
 {
+    var connString = builder.Configuration.GetConnectionString("DefaultConnection");
+    if (!string.IsNullOrEmpty(connString) && connString.StartsWith("postgres"))
+    {
+        var databaseUri = new Uri(connString);
+        var userInfo = databaseUri.UserInfo.Split(':');
+        connString = $"Host={databaseUri.Host};Port={(databaseUri.Port > 0 ? databaseUri.Port : 5432)};Database={databaseUri.LocalPath.TrimStart('/')};Username={userInfo[0]};Password={userInfo[1]};SslMode=Require;TrustServerCertificate=True;";
+    }
+    
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+        options.UseNpgsql(connString));
 }
 
 // Register IApplicationDbContext so MediatR handlers resolve via DI
