@@ -36,7 +36,7 @@ export default function Home() {
     setScanResult(null);
     try {
       const hostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5153'}/disease/detect`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_AI_URL || 'http://localhost:8000'}/disease/detect`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ image_url: 'demo.jpg', crop_type: 'Tomato' })

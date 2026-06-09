@@ -106,7 +106,7 @@ export default function Chatbot() {
     setIsLoading(true);
 
     try {
-      const baseUrl = typeof window !== 'undefined' ? `http://${window.location.hostname}:8000` : 'http://localhost:8000';
+      const baseUrl = (process.env.NEXT_PUBLIC_AI_URL || 'http://localhost:8000');
       
       let cartContextStr = "";
       if (cartItems.length > 0) {
